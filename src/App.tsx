@@ -1,6 +1,6 @@
 import Header from './components/header/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 import { ThemeProvider } from './components/theme/themeProvider';
 
 function App() {

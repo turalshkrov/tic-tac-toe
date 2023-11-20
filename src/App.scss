@@ -1,0 +1,43 @@
+$bg-color-dark: #2b2e4a;
+$text-color-dark: #e84545;
+
+$bg-color-light: #FFF;
+$text-color-light: #2a3845;
+
+body[data-theme = 'dark'] {
+  background: $bg-color-dark;
+  color: $text-color-dark ;
+  .navbar-brand {
+    color: $text-color-dark;
+  }
+  .header-btn {
+    color: $text-color-dark;
+    border-color: $text-color-dark;
+  }
+  .header-btn:hover {
+    color: $bg-color-dark;
+    background-color: $text-color-dark;
+  }
+}
+
+body[data-theme = 'light'] {
+  background: $bg-color-light;
+  color: $text-color-light ;
+  .navbar-brand {
+    color: $text-color-light;
+  }
+  .header-btn {
+    color: $text-color-light;
+    border-color: $text-color-light;
+  }
+  .header-btn:hover {
+    color: $bg-color-light;
+    background-color: $text-color-light;
+  }
+}
+
+
+.navbar {
+  border-bottom: 1px solid #333757;
+}
+
