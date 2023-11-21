@@ -1,7 +1,7 @@
 import { Button, Container, Navbar } from "react-bootstrap"
 import { MdRestartAlt, MdOutlineWbSunny } from "react-icons/md";
 import { useContext } from "react";
-import { ThemeContext } from "../theme/themeProvider";
+import { ThemeContext } from "../context/themeContext";
 
 export default function Header() {
   const { toggleTheme } = useContext(ThemeContext)

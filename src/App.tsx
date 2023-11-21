@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
-import { ThemeProvider } from './components/theme/themeProvider';
+import { ThemeProvider } from './components/context/themeContext';
 import SplashScreen from './pages/splash screen/SplashScreen';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Settings from './pages/settings/Settings';

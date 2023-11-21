@@ -1,6 +1,7 @@
 $bg-color-dark: #2b2e4a;
 $text-color-dark: #e84545;
 $shadow-color-dark: #903749;
+$btn-color-dark: #53354a;
 
 $bg-color-light: #FFF;
 $text-color-light: #333757;
@@ -36,6 +37,15 @@ body[data-theme = 'dark'] {
   }
   .start-btn-shadow {
     background-color: $shadow-color-dark;
+  }
+  .game-mode-radio {
+    background-color: $btn-color-dark;
+    border: none;
+    color: $text-color-dark;
+  }
+  .game-mode-radio:hover, .game-mode-radio:active {
+    background-color: $text-color-dark;
+    color: $bg-color-dark;
   }
 }
 
@@ -100,4 +110,7 @@ body[data-theme = 'light'] {
   .start-btn:active {
     top: 15px;
   }
+}
+form {
+  border: $text-color-light;
 }
