@@ -8,12 +8,12 @@ import Settings from './pages/settings/Settings';
 function App() {
   return (
       <ThemeProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<SplashScreen/>}/>
-            <Route path='/settings' element={<Settings/>}/>
-          </Routes>
-        </BrowserRouter>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<SplashScreen/>}/>
+              <Route path='/settings' element={<Settings/>}/>
+            </Routes>
+          </BrowserRouter>
       </ThemeProvider>
   )
 }

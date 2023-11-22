@@ -1,0 +1,63 @@
+@import '../../assets/colors.scss';
+
+form {
+  border: 2px solid $text-color-light;
+  .game-mode-radio {
+    border: none;
+    width: 100%;
+  }
+  .player-name-label {
+    font-size: .8rem;
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: $text-color-light;
+    box-shadow: none;
+  }
+}
+.play-btn {
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+body[data-theme = 'dark'] {
+  form {
+    .game-mode-radio {
+      background-color: $btn-color-dark;
+      color: $text-color-dark;
+    }
+    .game-mode-radio:hover, .mode-active {
+      background-color: $text-color-dark;
+      color: $bg-color-dark;
+    }
+    .form-control {
+      border-color: $text-color-dark;
+      background-color: $bg-color-dark;
+      color: $text-color-dark;
+    }
+  }
+  .play-btn, .play-btn:active {
+    background-color: $text-color-dark;
+    color: $bg-color-dark;
+  }
+}
+body[data-theme = 'light'] {
+  form {
+    .game-mode-radio {
+      background-color: $btn-color-light;
+      color: $bg-color-light;
+    }
+    .game-mode-radio:hover, .mode-active {
+      background-color: $text-color-light;
+      color: $bg-color-light;
+    }
+    .form-control {
+      border-color: $text-color-light;
+    }
+  }
+  .play-btn, .play-btn:active {
+    background-color: $text-color-light;
+  }
+}

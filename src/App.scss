@@ -1,14 +1,11 @@
-$bg-color-dark: #2b2e4a;
-$text-color-dark: #e84545;
-$shadow-color-dark: #903749;
-$btn-color-dark: #53354a;
-
-$bg-color-light: #FFF;
-$text-color-light: #333757;
-$shadow-color-light: #2b2e4a;
+@import './assets/colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');
 
 a {
   text-decoration: none;
+}
+body {
+  font-family: 'Work Sans', sans-serif;
 }
 
 body[data-theme = 'dark'] {
@@ -38,15 +35,7 @@ body[data-theme = 'dark'] {
   .start-btn-shadow {
     background-color: $shadow-color-dark;
   }
-  .game-mode-radio {
-    background-color: $btn-color-dark;
-    border: none;
-    color: $text-color-dark;
-  }
-  .game-mode-radio:hover, .game-mode-radio:active {
-    background-color: $text-color-dark;
-    color: $bg-color-dark;
-  }
+  
 }
 
 body[data-theme = 'light'] {
