@@ -1,21 +1,29 @@
 import { Button, Container, Navbar } from "react-bootstrap"
-import { MdRestartAlt, MdOutlineWbSunny } from "react-icons/md";
-import { useContext } from "react";
-import { ThemeContext } from "../context/themeContext";
+import { MdRestartAlt, MdOutlineSettings } from "react-icons/md";
+import { useAppDispatch } from "../../hooks";
+import { restart } from "../reducer/ScoreReducder";
+import { Link } from "react-router-dom";
 
 export default function Header() {
-  const { toggleTheme } = useContext(ThemeContext)
+  const dispatch = useAppDispatch()
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand className="">Tic Tac Toe</Navbar.Brand>
+        <Navbar.Brand className="fw-bold">tic-tac-toe</Navbar.Brand>
         <div className="toogle-btns d-flex">
-          <Button className="header-btn me-2" variant="outline">
+          <Button 
+            variant="outline"
+            className="header-btn me-2"
+            onClick={() => dispatch(restart())}>
             <MdRestartAlt size={25}/>
           </Button>
-          <Button onClick={toggleTheme} className="header-btn" variant="outline">
-            <MdOutlineWbSunny size={25}/>
-          </Button>
+          <Link to='/settings'>
+            <Button 
+              variant="outline"
+              className="header-btn" >
+              <MdOutlineSettings size={25}/>
+            </Button>
+          </Link>
         </div>
       </Container>
     </Navbar>

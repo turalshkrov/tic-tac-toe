@@ -22,27 +22,27 @@ form {
   box-shadow: none;
 }
 
-body[data-theme = 'dark'] {
-  form {
-    .game-mode-radio {
-      background-color: $btn-color-dark;
-      color: $text-color-dark;
-    }
-    .game-mode-radio:hover, .mode-active {
-      background-color: $text-color-dark;
-      color: $bg-color-dark;
-    }
-    .form-control {
-      border-color: $text-color-dark;
-      background-color: $bg-color-dark;
-      color: $text-color-dark;
-    }
+
+form {
+  .game-mode-radio {
+    background-color: $btn-color-dark;
+    color: $text-color-dark;
   }
-  .play-btn, .play-btn:active {
+  .game-mode-radio:hover, .mode-active {
     background-color: $text-color-dark;
     color: $bg-color-dark;
   }
+  .form-control, .form-control:focus {
+    border-color: $text-color-dark;
+    background-color: $bg-color-dark !important;
+    color: $text-color-dark;
+  }
 }
+.play-btn, .play-btn:active {
+  background-color: $text-color-dark !important;
+  color: $bg-color-dark !important;
+}
+
 body[data-theme = 'light'] {
   form {
     .game-mode-radio {

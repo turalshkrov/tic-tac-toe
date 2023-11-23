@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import SettingsReducer from "./components/reducer/SettingsReducer";
+import ScoreReducder from "./components/reducer/ScoreReducder";
 
 const store = configureStore({
   reducer: {
-    settings: SettingsReducer
+    settings: SettingsReducer,
+    score: ScoreReducder
   }
 })
 
