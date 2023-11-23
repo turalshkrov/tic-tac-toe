@@ -16,7 +16,7 @@ const initialState: SettingsState = {
   }
 }
 
-export const settingsReducer = createSlice({
+export const settingsSlicer = createSlice({
   name: 'settings',
   initialState,
   reducers: {
@@ -33,5 +33,5 @@ export const settingsReducer = createSlice({
   }
 })
 
-export default settingsReducer.reducer
-export const { gameModeChange, updatePlayer1, updatePlayer2, reset } = settingsReducer.actions
+export default settingsSlicer.reducer
+export const { gameModeChange, updatePlayer1, updatePlayer2, reset } = settingsSlicer.actions

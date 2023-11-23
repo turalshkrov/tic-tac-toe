@@ -16,7 +16,6 @@ export default function Settings() {
   }
   useEffect(() => {
     setIsFormDisabled(submitChecker())
-    console.log(settings);
   }, [ settings ])
   
   return (
