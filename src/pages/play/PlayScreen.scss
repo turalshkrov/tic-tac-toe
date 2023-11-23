@@ -54,3 +54,26 @@
   border-bottom: none !important;
   border-right: none !important;
 }
+
+#player-switcher {
+  width: 100px;
+  border: 2px solid $text-color-dark;
+  padding: 2px;
+  border-radius: 16px;
+  .switcher-btn {
+    display: flex;
+    background-color: $text-color-dark;
+    width: 60%;
+    height: 24px;
+    border-radius: 12px;
+    transition: .3s;
+    color: $bg-color-dark;
+    font-size: .8rem;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+  }
+  .switcher-btn-active {
+    transform: translateX(36px);
+  }
+}

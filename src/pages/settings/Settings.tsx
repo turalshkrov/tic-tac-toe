@@ -55,6 +55,7 @@ export default function Settings() {
                 <Form.Label className='player-name-label p-0 m-0 mb-2'>Player 1 - X</Form.Label>
                 <input className='form-control'
                   required 
+                  maxLength={6}
                   value={settings.players.player1}
                   onChange={e => dispatch(updatePlayer1(e.target.value.trim()))}
                 />
@@ -63,6 +64,7 @@ export default function Settings() {
                 <Form.Label className='player-name-label p-0 m-0 mb-2'>Player 2 - O</Form.Label>
                 <input className='form-control' 
                   required
+                  maxLength={6}
                   disabled={settings.gameMode === 'pvc' ? true : false}
                   value={settings.players.player2}
                   onChange={e => dispatch(updatePlayer2(e.target.value.trim()))}
