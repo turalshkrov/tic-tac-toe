@@ -4,14 +4,34 @@ import { useAppSelector } from '../../hooks'
 import { HiXMark } from "react-icons/hi2";
 import { LiaCircle } from "react-icons/lia";
 import './PlayScreen.scss'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const gridItems: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+type GridItem = {
+  id: number,
+  mark: '' | 'x' | 'o'
+}
+const initalGridItems: GridItem[] = []
+for (let i = 1; i <= 9; i++) {
+  initalGridItems.push({
+    id: i,
+    mark: ''
+  })
+}
 
 export default function PlayScreen() {
-  const [ currentPlayer, setCurrentPlayer ] = useState<'player-1' | 'player-2'>('player-2')
+  const [ gridItems, setGridItems ] = useState(initalGridItems)
+  const [ currentPlayer, setCurrentPlayer ] = useState<'player-1' | 'player-2'>('player-1')
   const score = useAppSelector(state => state.score);
   const settings = useAppSelector(state => state.settings)
+  const addIconToUI = (id: number) => {
+    if (!gridItems[id].mark) {
+      const newGridItems = [...gridItems];
+      newGridItems[id].mark = currentPlayer === 'player-1' ? 'x' : 'o';
+      setCurrentPlayer(currentPlayer === 'player-1' ? 'player-2' : 'player-1');
+      return setGridItems(newGridItems);
+    }
+  }
+
   return (
     <div id="play-screen">
       <Header/>
@@ -29,9 +49,21 @@ export default function PlayScreen() {
           <div className="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
             <div className="row" id='grid-container'>
               {
-                gridItems.map(item => {
-                  return <div className="grid-item col-4" id={`item-${item}`} key={item}>
-                    
+                gridItems.map((item, id)=> {
+                  return <div 
+                    className="grid-item col-4 d-flex justify-content-center align-items-center" 
+                    id={`item-${item.id}`} 
+                    key={item.id}
+                    onClick={() => addIconToUI(id)}>
+                      { item.mark === 'x' ? 
+                          <div className='x-mark d-flex'>
+                            <HiXMark/> 
+                          </div>
+                        : item.mark === 'o' ? 
+                        <div className='o-mark d-flex'>
+                          <LiaCircle/> 
+                        </div>
+                        : ''}
                   </div>
                 })
               }

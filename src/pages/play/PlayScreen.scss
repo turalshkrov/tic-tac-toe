@@ -23,7 +23,19 @@
   width: 300px;
   height: 300px;
   .grid-item {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
     border: 2px solid $text-color-dark;
+    .x-mark, .o-mark {
+      font-size: 4rem
+    }
+    .x-mark {
+      color: $x-mark-color;
+    }
+    .o-mark {
+      color: $o-mark-color;
+    }
   }
 }
 #item-1 {
