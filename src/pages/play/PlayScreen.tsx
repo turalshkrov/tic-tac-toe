@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks'
 import { HiXMark } from "react-icons/hi2";
 import { LiaCircle } from "react-icons/lia";
 import './PlayScreen.scss'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type GridItem = {
   id: number,
@@ -59,11 +59,11 @@ export default function PlayScreen() {
                           <div className='x-mark d-flex'>
                             <HiXMark/> 
                           </div>
-                        : item.mark === 'o' ? 
-                        <div className='o-mark d-flex'>
-                          <LiaCircle/> 
-                        </div>
-                        : ''}
+                          : item.mark === 'o' ? 
+                          <div className='o-mark d-flex'>
+                            <LiaCircle/> 
+                          </div>
+                          : ''}
                   </div>
                 })
               }
