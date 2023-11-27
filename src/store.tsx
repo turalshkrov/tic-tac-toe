@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import SettingsReducer from "./components/reducer/SettingsReducer";
 import ScoreReducder from "./components/reducer/ScoreReducder";
+import GameReducer from "./components/reducer/GameReducer";
 
 const store = configureStore({
   reducer: {
     settings: SettingsReducer,
-    score: ScoreReducder
+    score: ScoreReducder,
+    game: GameReducer
   }
 })
 

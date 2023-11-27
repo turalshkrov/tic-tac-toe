@@ -1,35 +1,25 @@
-import { Container } from 'react-bootstrap'
-import Header from '../../components/header/Header'
-import { useAppSelector } from '../../hooks'
+import {  useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks'
 import { HiXMark } from "react-icons/hi2";
 import { LiaCircle } from "react-icons/lia";
+import { Container } from 'react-bootstrap'
+import Header from '../../components/header/Header'
 import './PlayScreen.scss'
-import { useState } from 'react';
-
-type GridItem = {
-  id: number,
-  mark: '' | 'x' | 'o'
-}
-const initalGridItems: GridItem[] = []
-for (let i = 1; i <= 9; i++) {
-  initalGridItems.push({
-    id: i,
-    mark: ''
-  })
-}
+import { played, reset } from '../../components/reducer/GameReducer';
+import { player1Win,player2Win } from '../../components/reducer/ScoreReducder';
 
 export default function PlayScreen() {
-  const [ gridItems, setGridItems ] = useState(initalGridItems)
+  const [ winner, setWinner ] = useState<null | 'player-1' | 'player-2'>(null)
   const [ currentPlayer, setCurrentPlayer ] = useState<'player-1' | 'player-2'>('player-1')
-  const score = useAppSelector(state => state.score);
+  const gridItems = useAppSelector(state => state.game.gridItems)
+  const dispatch = useAppDispatch()
+  const score = useAppSelector(state => state.game.score);
   const settings = useAppSelector(state => state.settings)
-  const addIconToUI = (id: number) => {
-    if (!gridItems[id].mark) {
-      const newGridItems = [...gridItems];
-      newGridItems[id].mark = currentPlayer === 'player-1' ? 'x' : 'o';
-      setCurrentPlayer(currentPlayer === 'player-1' ? 'player-2' : 'player-1');
-      return setGridItems(newGridItems);
-    }
+  const userPlayed = (id: number) => {
+    dispatch(played({id: id, currentPlayer: currentPlayer}))
+    setCurrentPlayer(currentPlayer === 'player-1' ? 'player-2' : 'player-1')
+    console.log(gridItems);
+    
   }
 
   return (
@@ -54,7 +44,7 @@ export default function PlayScreen() {
                     className="grid-item col-4 d-flex justify-content-center align-items-center" 
                     id={`item-${item.id}`} 
                     key={item.id}
-                    onClick={() => addIconToUI(id)}>
+                    onClick={() => userPlayed(id)}>
                       { item.mark === 'x' ? 
                           <div className='x-mark d-flex'>
                             <HiXMark/> 

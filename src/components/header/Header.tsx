@@ -3,9 +3,14 @@ import { MdRestartAlt, MdOutlineSettings } from "react-icons/md";
 import { useAppDispatch } from "../../hooks";
 import { restart } from "../reducer/ScoreReducder";
 import { Link } from "react-router-dom";
+import { reset } from "../reducer/GameReducer";
 
 export default function Header() {
   const dispatch = useAppDispatch()
+  const restartGame = () => {
+    dispatch(restart())
+    dispatch(reset())
+  }
   return (
     <Navbar>
       <Container>
@@ -14,7 +19,7 @@ export default function Header() {
           <Button 
             variant="outline"
             className="header-btn me-2"
-            onClick={() => dispatch(restart())}>
+            onClick={() => restartGame}>
             <MdRestartAlt size={25}/>
           </Button>
           <Link to='/settings'>
