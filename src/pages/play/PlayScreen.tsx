@@ -1,27 +1,23 @@
-import {  useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { HiXMark } from "react-icons/hi2";
 import { LiaCircle } from "react-icons/lia";
 import { Container } from 'react-bootstrap'
 import Header from '../../components/header/Header'
 import './PlayScreen.scss'
-import { played, reset } from '../../components/reducer/GameReducer';
-import { player1Win,player2Win } from '../../components/reducer/ScoreReducder';
+import { played, newGame } from '../../components/reducer/GameReducer';
 
 export default function PlayScreen() {
-  const [ winner, setWinner ] = useState<null | 'player-1' | 'player-2'>(null)
-  const [ currentPlayer, setCurrentPlayer ] = useState<'player-1' | 'player-2'>('player-1')
+  const currentPlayer = useAppSelector(state => state.game.currentPlayer)
+  const winner = useAppSelector(state => state.game.winner)
   const gridItems = useAppSelector(state => state.game.gridItems)
-  const dispatch = useAppDispatch()
-  const score = useAppSelector(state => state.game.score);
+  const score = useAppSelector(state => state.game.score)
   const settings = useAppSelector(state => state.settings)
+  const dispatch = useAppDispatch()
   const userPlayed = (id: number) => {
-    dispatch(played({id: id, currentPlayer: currentPlayer}))
-    setCurrentPlayer(currentPlayer === 'player-1' ? 'player-2' : 'player-1')
-    console.log(gridItems);
+    dispatch(played({ id: id }))
+    console.log(winner);
     
   }
-
   return (
     <div id="play-screen">
       <Header/>
@@ -82,6 +78,22 @@ export default function PlayScreen() {
           </div>
         </div>
       </Container>
+      {
+        winner ?
+        <div className='winner-label' onClick={() => dispatch(newGame())}>
+          <h2>
+            {
+              winner === 'draw' ? 'It\'s a draw.' : 
+              <>
+                <span className='fw-bold'>
+                  { winner === 'player-1' ? settings.players.player1 : settings.players.player2 }
+                </span> takes the game!
+              </>
+            }
+          </h2>
+        </div>
+        : null
+      }
     </div>
   )
 }

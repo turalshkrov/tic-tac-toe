@@ -9,7 +9,7 @@ type SettingsState = {
 }
 
 const initialState: SettingsState = {
-  gameMode: 'pvc',
+  gameMode: 'pvp',
   players: {
     player1: '',
     player2: ''

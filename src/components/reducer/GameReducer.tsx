@@ -19,12 +19,20 @@ type Score = {
   player1: number,
   player2: number
 }
-const initialState: { gridItems: GridItem[], score: Score } = {
+type InitialState = { 
+  gridItems: GridItem[],
+  currentPlayer: 'player-1' | 'player-2'
+  score: Score, 
+  winner: 'player-1' | 'player-2' | 'draw' | null 
+}
+const initialState: InitialState = {
   gridItems: [],
+  currentPlayer: 'player-1',
   score: {
     player1: 0,
     player2: 0
-  }
+  },
+  winner: null
 }
 for (let i = 1; i <= 9; i++) {
   initialState.gridItems.push({
@@ -39,22 +47,32 @@ export const GameSlice = createSlice({
   reducers: {
     played: (state, action) => {
       if (!state.gridItems[action.payload.id].mark) {
-        state.gridItems[action.payload.id].mark = action.payload.currentPlayer === 'player-1' ? 'x' : 'o'
+        state.gridItems[action.payload.id].mark = state.currentPlayer === 'player-1' ? 'x' : 'o'
+        state.currentPlayer = state.currentPlayer === 'player-1' ? 'player-2' : 'player-1';
       }
       const xMark = state.gridItems.filter(item => item.mark === 'x').map(item => item.id)
       const oMark = state.gridItems.filter(item => item.mark === 'o').map(item => item.id)
       wictoryConditions.forEach(con => {
         if(con.every(id => xMark.includes(id))) {
           state.score.player1 += 1;
+          state.winner = 'player-1';
         }
         if(con.every(id => oMark.includes(id))) {
           state.score.player2 += 1;
+          state.winner = 'player-2';
         }
       })
+      if (state.gridItems.every(item => item.mark)) {
+        state.winner = state.winner ?? 'draw'
+      }
     },
-    reset: () => initialState
+    newGame: (state) => { 
+      state.gridItems.map(item => item.mark = '')
+      state.winner = null
+    },
+    restart: () => initialState
   }
 })
 
 export default GameSlice.reducer
-export const { played, reset } = GameSlice.actions
+export const { played, newGame, restart } = GameSlice.actions
