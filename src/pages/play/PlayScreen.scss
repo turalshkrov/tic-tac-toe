@@ -27,6 +27,7 @@
     width: 100px;
     height: 100px;
     border: 2px solid $text-color-dark;
+    transition: .3s;
     .x-mark, .o-mark {
       font-size: 4rem
     }
@@ -35,6 +36,12 @@
     }
     .o-mark {
       color: $o-mark-color;
+    }
+  }
+  .grid-item-active {
+    background-color: $text-color-dark;
+    .x-mark, .o-mark {
+      color: $bg-color-dark;
     }
   }
 }
@@ -90,9 +97,9 @@
   }
 }
 .winner-label {
+  position: fixed;
   height: 200px;
   width: 100%;
-  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -100,7 +107,9 @@
   justify-content: center;
   background-color: $winner-bg;
   box-shadow: 3px 5px 10px $bg-color-dark;
+  animation: winnerLabelAnimation 1s;
 }
-.winner-label-closed {
-  display: none;
+@keyframes winnerLabelAnimation {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

@@ -13,7 +13,8 @@ const wictoryConditions = [
 
 type GridItem = {
   id: number,
-  mark: '' | 'x' | 'o'
+  mark: '' | 'x' | 'o',
+  class: '' | 'active'
 }
 type Score = {
   player1: number,
@@ -37,7 +38,8 @@ const initialState: InitialState = {
 for (let i = 1; i <= 9; i++) {
   initialState.gridItems.push({
     id: i,
-    mark: ''
+    mark: '',
+    class: ''
   })
 }
 
@@ -46,28 +48,37 @@ export const GameSlice = createSlice({
   initialState,
   reducers: {
     played: (state, action) => {
-      if (!state.gridItems[action.payload.id].mark) {
+      if (!state.winner && !state.gridItems[action.payload.id].mark) {
         state.gridItems[action.payload.id].mark = state.currentPlayer === 'player-1' ? 'x' : 'o'
         state.currentPlayer = state.currentPlayer === 'player-1' ? 'player-2' : 'player-1';
-      }
-      const xMark = state.gridItems.filter(item => item.mark === 'x').map(item => item.id)
-      const oMark = state.gridItems.filter(item => item.mark === 'o').map(item => item.id)
-      wictoryConditions.forEach(con => {
-        if(con.every(id => xMark.includes(id))) {
-          state.score.player1 += 1;
-          state.winner = 'player-1';
+        const xMark = state.gridItems.filter(item => item.mark === 'x').map(item => item.id)
+        const oMark = state.gridItems.filter(item => item.mark === 'o').map(item => item.id)
+        wictoryConditions.forEach(con => {
+          if(con.every(id => xMark.includes(id))) {
+            state.gridItems.filter(item => con.includes(item.id)).map(item => {
+              item.class = 'active'
+            })
+            state.score.player1 += 1;
+            state.winner = 'player-1';
+          }
+          if(con.every(id => oMark.includes(id))) {
+            state.gridItems.filter(item => con.includes(item.id)).map(item => {
+              item.class = 'active'
+            })
+            state.score.player2 += 1;
+            state.winner = 'player-2';
+          }
+        })
+        if (state.gridItems.every(item => item.mark)) {
+          state.winner = state.winner ?? 'draw'
         }
-        if(con.every(id => oMark.includes(id))) {
-          state.score.player2 += 1;
-          state.winner = 'player-2';
-        }
-      })
-      if (state.gridItems.every(item => item.mark)) {
-        state.winner = state.winner ?? 'draw'
       }
     },
     newGame: (state) => { 
-      state.gridItems.map(item => item.mark = '')
+      state.gridItems.map(item => { 
+        item.mark = ''
+        item.class = ''
+      })
       state.winner = null
     },
     restart: () => initialState

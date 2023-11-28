@@ -16,6 +16,7 @@ export default function Settings() {
   }
   useEffect(() => {
     setIsFormDisabled(submitChecker())
+    sessionStorage.setItem('player-names', JSON.stringify(settings.players))
   }, [ settings ])
   
   return (

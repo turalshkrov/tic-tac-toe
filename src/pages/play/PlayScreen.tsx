@@ -15,8 +15,6 @@ export default function PlayScreen() {
   const dispatch = useAppDispatch()
   const userPlayed = (id: number) => {
     dispatch(played({ id: id }))
-    console.log(winner);
-    
   }
   return (
     <div id="play-screen">
@@ -37,7 +35,7 @@ export default function PlayScreen() {
               {
                 gridItems.map((item, id)=> {
                   return <div 
-                    className="grid-item col-4 d-flex justify-content-center align-items-center" 
+                    className={`grid-item col-4 d-flex justify-content-center align-items-center ${item.class ? 'grid-item-active' : '' }`}
                     id={`item-${item.id}`} 
                     key={item.id}
                     onClick={() => userPlayed(id)}>
@@ -58,7 +56,7 @@ export default function PlayScreen() {
           <div className="col-3 col-lg-4 p-4 player-label d-none d-md-block" id='palyer-2'>
             <LiaCircle/>
             <span className="player-name fw-bold">
-              { settings.players.player2 ? settings.players.player2 : 'A.I.'}
+              { settings.gameMode === 'pvp' ? settings.players.player2 : 'A.I.'}
             </span>
           </div>
           <div className="col-12 d-flex justify-content-center mt-5">
@@ -70,7 +68,7 @@ export default function PlayScreen() {
                   {
                     currentPlayer === 'player-1' 
                     ? settings.players.player1 :
-                    settings.players.player2 ? settings.players.player2 
+                    settings.gameMode === 'pvp' ? settings.players.player2 
                     : 'A.I.'
                   }
               </div>
@@ -80,13 +78,13 @@ export default function PlayScreen() {
       </Container>
       {
         winner ?
-        <div className='winner-label' onClick={() => dispatch(newGame())}>
+        <div className={`winner-label ${winner ? 'winner-label-active' : ''}`} onClick={() => dispatch(newGame())}>
           <h2>
             {
               winner === 'draw' ? 'It\'s a draw.' : 
               <>
                 <span className='fw-bold'>
-                  { winner === 'player-1' ? settings.players.player1 : settings.players.player2 }
+                  { winner === 'player-1' ? settings.players.player1 : settings.players.player2 || 'A.I.'}
                 </span> takes the game!
               </>
             }
