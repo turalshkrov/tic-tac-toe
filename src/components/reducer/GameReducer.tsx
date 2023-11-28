@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const wictoryConditions = [
+export const wictoryConditions = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9],
@@ -58,14 +58,14 @@ export const GameSlice = createSlice({
             state.gridItems.filter(item => con.includes(item.id)).map(item => {
               item.class = 'active'
             })
-            state.score.player1 += 1;
+            state.score.player1 += state.winner ? 1 : 0;
             state.winner = 'player-1';
           }
           if(con.every(id => oMark.includes(id))) {
             state.gridItems.filter(item => con.includes(item.id)).map(item => {
               item.class = 'active'
             })
-            state.score.player2 += 1;
+            state.score.player2 += state.winner ? 1 : 0;
             state.winner = 'player-2';
           }
         })
