@@ -9,7 +9,7 @@ type SettingsState = {
 }
 
 const initialState: SettingsState = {
-  gameMode: 'pvp',
+  gameMode: 'pvc',
   // @ts-ignore
   players: JSON.parse(sessionStorage.getItem('player-names')) || {
     player1: '',

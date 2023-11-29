@@ -2,9 +2,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks'
 import { HiXMark } from "react-icons/hi2";
 import { LiaCircle } from "react-icons/lia";
 import { Container } from 'react-bootstrap'
+import { played, newGame } from '../../components/reducer/GameReducer';
+import { useEffect } from 'react';
+import { AI } from '../../ai/AI';
 import Header from '../../components/header/Header'
 import './PlayScreen.scss'
-import { played, newGame } from '../../components/reducer/GameReducer';
 
 export default function PlayScreen() {
   const currentPlayer = useAppSelector(state => state.game.currentPlayer)
@@ -14,8 +16,20 @@ export default function PlayScreen() {
   const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
   const userPlayed = (id: number) => {
-    dispatch(played({ id: id }))
+    if (settings.gameMode === 'pvc') {
+      currentPlayer === 'player-1' ? dispatch(played({ id: id })) : null;
+    } else {
+      dispatch(played({ id: id }))
+    }    
   }
+  useEffect(() => {
+    if (settings.gameMode === 'pvc' && currentPlayer === 'player-2') {
+      const playAbleSpace: typeof gridItems = gridItems.filter(item => item.mark == '');
+      const aiPlay = playAbleSpace[ Math.floor(Math.random() * playAbleSpace.length) ].id
+      dispatch(played({ id: aiPlay }))
+    }
+    
+  }, [ currentPlayer ])
   return (
     <div id="play-screen">
       <Header/>
@@ -33,12 +47,12 @@ export default function PlayScreen() {
           <div className="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
             <div className="row" id='grid-container'>
               {
-                gridItems.map((item, id)=> {
+                gridItems.map((item)=> {
                   return <div 
                     className={`grid-item col-4 d-flex justify-content-center align-items-center ${item.class ? 'grid-item-active' : '' }`}
                     id={`item-${item.id}`} 
                     key={item.id}
-                    onClick={() => userPlayed(id)}>
+                    onClick={() => userPlayed(item.id)}>
                       { item.mark === 'x' ? 
                           <div className='x-mark d-flex'>
                             <HiXMark/> 

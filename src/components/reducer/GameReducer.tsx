@@ -48,8 +48,8 @@ export const GameSlice = createSlice({
   initialState,
   reducers: {
     played: (state, action) => {
-      if (!state.winner && !state.gridItems[action.payload.id].mark) {
-        state.gridItems[action.payload.id].mark = state.currentPlayer === 'player-1' ? 'x' : 'o'
+      if (!state.winner && !state.gridItems.filter(item => item.id === action.payload.id)[0].mark) {
+        state.gridItems.filter(item => item.id === action.payload.id)[0].mark = state.currentPlayer === 'player-1' ? 'x' : 'o'
         state.currentPlayer = state.currentPlayer === 'player-1' ? 'player-2' : 'player-1';
         const xMark = state.gridItems.filter(item => item.mark === 'x').map(item => item.id)
         const oMark = state.gridItems.filter(item => item.mark === 'o').map(item => item.id)
@@ -71,6 +71,7 @@ export const GameSlice = createSlice({
         })
         if (state.gridItems.every(item => item.mark)) {
           state.winner = state.winner ?? 'draw'
+          state.currentPlayer = 'player-1'
         }
       }
     },
@@ -80,6 +81,7 @@ export const GameSlice = createSlice({
         item.class = ''
       })
       state.winner = null
+      state.currentPlayer = 'player-1'
     },
     restart: () => initialState
   }
