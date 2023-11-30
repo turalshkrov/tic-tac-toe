@@ -4,7 +4,6 @@ import { LiaCircle } from "react-icons/lia";
 import { Container } from 'react-bootstrap'
 import { played, newGame } from '../../components/reducer/GameReducer';
 import { useEffect } from 'react';
-import { AI } from '../../ai/AI';
 import Header from '../../components/header/Header'
 import './PlayScreen.scss'
 
@@ -24,9 +23,9 @@ export default function PlayScreen() {
   }
   useEffect(() => {
     if (settings.gameMode === 'pvc' && currentPlayer === 'player-2') {
-      const playAbleSpace: typeof gridItems = gridItems.filter(item => item.mark == '');
-      const aiPlay = playAbleSpace[ Math.floor(Math.random() * playAbleSpace.length) ].id
-      dispatch(played({ id: aiPlay }))
+      const possibleChoices: typeof gridItems = gridItems.filter(item => item.mark == '');
+      const aiChoice = possibleChoices[ Math.floor(Math.random() * possibleChoices.length) ].id
+      dispatch(played({ id: aiChoice }))
     }
     
   }, [ currentPlayer ])

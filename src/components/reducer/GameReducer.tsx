@@ -58,14 +58,14 @@ export const GameSlice = createSlice({
             state.gridItems.filter(item => con.includes(item.id)).map(item => {
               item.class = 'active'
             })
-            state.score.player1 += state.winner ? 1 : 0;
+            state.score.player1 += state.winner ? 0 : 1;
             state.winner = 'player-1';
           }
           if(con.every(id => oMark.includes(id))) {
             state.gridItems.filter(item => con.includes(item.id)).map(item => {
               item.class = 'active'
             })
-            state.score.player2 += state.winner ? 1 : 0;
+            state.score.player2 += state.winner ? 0 : 1;
             state.winner = 'player-2';
           }
         })
